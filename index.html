@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Week 4</title>
     <link rel="stylesheet" href="./style.css" />
-    <script src="./index.js"></script>
+    <script src="./index.js" defer></script>
     <script
       src="https://kit.fontawesome.com/66767013e4.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
+    <div id="loading__screen">
+     <img class="loader__img" src="./assets/dog_gif.gif">
+    </div>
     <section id="landing">
       <nav>
         <div class="nav__container">
@@ -34,9 +37,11 @@
               <input
                 class="search__bar"
                 type="text"
-                placeholder="Search by Breed, Age, or Location"
+                placeholder="Find a random dog by searching 'random'!"
               />
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <button class="search__btn" onclick="main()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
             </form>
           </div>
         </div>
@@ -46,119 +51,26 @@
       <div class="search__results--header">
         <h2 class="results__h2">Search Results:</h2>
         <div class="filter__container">
-          <h5 class="results__h5">Price Range: $0 to $250</h5>
+          <h5 class="results__h5">number of images: 1 to 3</h5>
           <div class="range">
             <div class="field">
-              <div class="value__left">0</div>
+              <div class="value__left">1</div>
               <input
-                class="filter__input"
+                id="range__element"
                 type="range"
-                min="0"
-                max="250"
-                value="100"
+                min="1"
+                max="3"
+                value="0"
                 steps="1"
               />
-              <div class="value__right">250</div>
+              <div class="value__right">3</div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section id="dogs">
-        <!--<div class="dogs__wrapper">
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/rudy.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Rudy</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$200</span>
-            <span class="dog__price--sale">$75</span>
-          </div>
-          <div class="location">the Humane Society of North Central Florida</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/Cleo.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Cleo</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$250</span>
-            <span class="dog__price--sale">$150</span>
-          </div>
-          <div class="location">Alachua County Animal Services</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/bruno.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Bruno</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$75</span>
-            <span class="dog__price--sale">$0</span>
-          </div>
-          <div class="location">the Humane Society of North Central Florida</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/Gracie.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Gracie</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$230</span>
-            <span class="dog__price--sale">$175</span>
-          </div>
-          <div class="location">Faithful Friends</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/Thor.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Thor</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$50</span>
-            <span class="dog__price--sale">$25</span>
-          </div>
-          <div class="location">the Humane Society of North Central Florida</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/Coconut.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Coconut</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$100</span>
-            <span class="dog__price--sale">$75</span>
-          </div>
-          <div class="location">Faithful Friends</div>
-        </div>
-      </div>
-      <div class="dog">
-        <figure class="dog__img--wrapper">
-          <img class="dog__img" src="./assets/luca.jpg" />
-        </figure>
-        <div class="dog__bio">
-          <div class="dog__name">Luca</div>
-          <div class="dog__price">
-            <span class="dog__price--normal">$150</span>
-            <span class="dog__price--sale">$100<span>
-          </div>
-          <div class="location">Alachua County Animal Services </div>
-        </div>
-    </div>
-    </div> -->
-  
+    <section>
+      <div id="dogs"></div>
     </section>
   </body>
 </html>

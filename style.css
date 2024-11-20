@@ -6,6 +6,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "sour gummy", sans-serif;
+    background-color: rgb(230, 247, 250);
 }
 
 #landing {
@@ -80,6 +81,7 @@ nav {
     letter-spacing: 2px;
 }
 
+
 .search__container {
     position: relative;
 }
@@ -145,7 +147,8 @@ nav {
 
 /*DOGS*/
 
-.dogs__wrapper {
+#dogs {
+    padding-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,27 +156,36 @@ nav {
     width: calc(33% / 100%);
 }
 
-.dog {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.dog__img {
+.dog__image {
     border-radius: 10px;
     width: 387px;
     height: 387px;
 }
 
-.dog__bio {
+.dog__info {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.dog__price--normal {
-    color: lightgrey;
-    text-decoration: line-through;
+.search__btn {
+    background-color: transparent;
+    border: 0 solid;
+}
+
+/** loading screen**/
+
+#loading__screen {
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    z-index: 1;
 }
