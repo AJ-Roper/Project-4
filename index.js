@@ -48,7 +48,6 @@ async function main() {
     var loader = document.getElementById("loading__screen");
 
     window.addEventListener ("load", function(){
-      loader.style.display = "none";
     })
 
     const pageLoad = new Promise(resolve => {
@@ -56,25 +55,38 @@ async function main() {
     }) 
 
     const delayTimeout = new Promise(resolve => {
-      setTimeout(resolve, 2000);
+      setTimeout(resolve, 1000);
     })
 
     Promise.all([pageLoad, delayTimeout]).then(() => {
-      vanish();
+      loader.style.display = "none";
     })
 
     // event listener to detect changes in value
-
-    //rangeElement.addEventListener(range. function(){
-    //}) {
-
-    //};
-
     //calc for how many images to display
-
-
-
     //DOM manipulation for show/hide elements
+
+        const slider = document.getElementById('range');
+        const sliderValueDisplay = document.getElementById('range__element');
+        const imageContainer = document.getElementById('dogs');
+
+        const imageSrc = '${dogImageUrl}';
+
+        function updateImages() {
+          const numImages = parseInt(slider.value, 6);
+          rangeValueDisplay.textContent = numImages;
+          imageContainer.innerHTML = '';
+
+          for (let i = 0 <numImages; i++) {
+            const img = document.createElement('img');
+            img.src = imageSrc
+            img.alt = 'image ${i + 1}';
+            imageContainer.appendChild(img);
+          }
+        }
+
+        slider.addEventListener('input', updateImages);
+        updateImages();
 
     // Initial load
     displayDog();
