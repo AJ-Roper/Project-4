@@ -66,22 +66,25 @@ async function main() {
     //calc for how many images to display
     //DOM manipulation for show/hide elements
 
-        const slider = document.getElementById('range');
-        const sliderValueDisplay = document.getElementById('range__element');
+        const slider = document.getElementById('range__element');
+        const rangeValueDisplay = document.querySelector('.results__h5');
         const imageContainer = document.getElementById('dogs');
 
         const imageSrc = '${dogImageUrl}';
 
-        function updateImages() {
-          const numImages = parseInt(slider.value, 6);
-          rangeValueDisplay.textContent = numImages;
+        async function updateImages() {
+          const numImages = parseInt(slider.value);
+          rangeValueDisplay.textContent = 'number of images';
           imageContainer.innerHTML = '';
 
-          for (let i = 0 <numImages; i++) {
+          for (let i = 0; i < numImages; i++) {
+            const dogImageUrl = await fetchRandomDog();
+            if (dogImageUrl) {
             const img = document.createElement('img');
-            img.src = imageSrc
+            img.src = dogImageUrl;
             img.alt = 'image ${i + 1}';
             imageContainer.appendChild(img);
+            }
           }
         }
 
