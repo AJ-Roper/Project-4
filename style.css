@@ -16,8 +16,7 @@ body {
 /*NAV*/
 
 .hamburger__menu {
-    position: absolute;
-    display: hidden;
+   visibility: hidden;
 }
 
 nav {
@@ -260,9 +259,24 @@ nav {
     }
 
     .search__btn {
-        right: 160px;
+        right: 140px;
     }
-}
+
+    .hamburger__menu {
+        visibility: visible;
+         position: absolute;
+       top: 60px;
+       right: 120px;
+       font-size: 30px;
+       cursor: pointer;
+    }
+
+    .search__results--header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    }
 
 @media all and (min-width: 0) and (max-width: 480px) {
     nav {
@@ -305,9 +319,10 @@ nav {
     }
 
     .hamburger__menu {
+        visibility: visible;
         position: absolute;
        top: 60px;
-       right: 25px;
+       right: 60px;
        font-size: 30px;
        cursor: pointer;
     }
