@@ -25,16 +25,16 @@ async function main() {
   async function updateImages() {
     const numImages = parseInt(slider.value);
 
-    // Update display
+    // Update the display
     rangeValueDisplay.textContent = `number of images: ${numImages}`;
 
-    // Show loading state
+    // Show the loading state
     imageContainer.innerHTML = "<p>Loading...</p>";
 
     try {
       const successfulImages = [];
 
-      // Keep trying until we get the exact number of images we need
+      // Keep trying until we get just the exact number of images we need
       while (successfulImages.length < numImages) {
         try {
           const url = await fetchRandomDog();
@@ -75,7 +75,7 @@ async function main() {
     }
   }
 
-  // Debounce function with a reasonable delay
+  // Debounce function
   function debounce(func, wait) {
     let timeoutId = null;
     return (...args) => {
@@ -84,7 +84,6 @@ async function main() {
     };
   }
 
-  // Create debounced version with 500ms delay
   const debouncedUpdateImages = debounce(updateImages, 500);
 
   // Event listeners

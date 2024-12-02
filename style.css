@@ -15,6 +15,11 @@ body {
 
 /*NAV*/
 
+.hamburger__menu {
+    position: absolute;
+    display: hidden;
+}
+
 nav {
     background-image: url('./assets/dog\ banner.jpg');
     background-attachment:fixed;
@@ -56,6 +61,7 @@ nav {
 .nav-link {
     padding: 0 10px 0 10px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .nav-link__primary {
@@ -81,14 +87,10 @@ nav {
     letter-spacing: 2px;
 }
 
-
-.search__container {
-    position: relative;
-}
-
 .search__bar--container {
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .search__bar {
@@ -99,10 +101,10 @@ nav {
     border-radius: 9999px;
 }
 
-.search__container .fa-magnifying-glass {
+.search__btn {
     position: absolute;
-    top: 15px; 
-    right: 650px;
+    top: 12px; 
+    right: 645px;
     color: #E11584;
     font-size: 25px
 }
@@ -203,3 +205,110 @@ nav {
 
 /**RESPONSIVE**/
 
+/**
+1280+ 
+769-1279
+481-768
+0-480
+**/
+
+@media all and (min-width: 1024px) and (max-width: 1280px) { 
+
+    nav {
+        padding-bottom: 75px;
+        background-color: #92feff;
+        background-image: url("./assets/dog\ banner\ 1024-1280.png");
+    }
+
+    .search__btn {
+        right: 320px;
+    }
+
+}
+
+@media all and (min-width: 769px) and (max-width: 1023px) {
+    nav {
+        background-color: #92feff;
+        background-image: url("./assets/dog\ banner\ 769-1023.png");
+    }
+
+    .search__results--header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search__btn {
+        right: 190px;
+    }
+}
+
+@media all and (min-width: 481px) and (max-width: 768px) {
+
+    nav {
+        background-image: url("./assets/dog\ banner-responsive.jpg");
+    }
+    .nav__links {
+        display: none;
+    }
+
+    .logo {
+        scale: 60%;
+    }
+
+    .search__bar {
+        max-width: 400px;
+    }
+
+    .search__btn {
+        right: 160px;
+    }
+}
+
+@media all and (min-width: 0) and (max-width: 480px) {
+    nav {
+        background-image: url("./assets/dog\ banner-responsive.jpg");
+    }
+    .nav__links {
+        display: none;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
+    }
+
+    .browse_header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .search__bar {
+        max-width: 200px;
+    }
+
+    .search__btn {
+        right: 110px;
+    }
+
+    .search__results--header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .classname-for-your-dog-imgs {
+        width: 300px;
+        height: 300px;
+    }
+
+    .hamburger__menu {
+        position: absolute;
+       top: 60px;
+       right: 25px;
+       font-size: 30px;
+       cursor: pointer;
+    }
+}
