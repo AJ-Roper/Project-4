@@ -156,10 +156,12 @@ nav {
     width: calc(33% / 100%);
 }
 
-.dog__image {
-    border-radius: 10px;
-    width: 387px;
-    height: 387px;
+.classname-for-your-dog-imgs {
+    border-radius: 50px;
+    width: 500px;
+    height: 500px;
+    padding: 10px 20px;
+    filter: drop-shadow(30px 10px 4px #bdbdbd);
 }
 
 .dog__info {
@@ -189,3 +191,15 @@ nav {
     font-size: 80px;
     z-index: 1;
 }
+/**FOOTER**/
+
+#main__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    padding-top: 15px;
+}
+
+/**RESPONSIVE**/
+

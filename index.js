@@ -1,98 +1,116 @@
 //https://dog.ceo/api/breeds/image/random
 
 async function main() {
-    const searchBar = document.querySelector(".search__bar");
-    const resultsSection = document.getElementById("dogs");
-    let range = document.getElementsByClassName('slider')
-    let button = document.getElementsByTagName('button')
-  
-    // Fetch a random dog image
-    async function fetchRandomDog() {
+  const searchBar = document.querySelector(".search__bar");
+  const slider = document.getElementById("range__element");
+  const rangeValueDisplay = document.querySelector(".results__h5");
+  const imageContainer = document.getElementById("dogs");
+
+  // Single fetch attempt with retry logic
+  async function fetchRandomDog(retryCount = 3) {
+    for (let i = 0; i < retryCount; i++) {
       try {
         const response = await fetch("https://dog.ceo/api/breeds/image/random");
+        if (!response.ok) throw new Error("Network response was not ok");
         const dogData = await response.json();
-        return dogData.message; // URL of the random dog image
+        return dogData.message;
       } catch (error) {
-        console.error("Error fetching dog data:", error);
-        return null;
+        console.error(`Attempt ${i + 1} failed:`, error);
+        if (i === retryCount - 1) throw error; // Throw on final retry
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Wait before retry
       }
     }
-
-    // Update the UI with the dog image
-    async function displayDog() {
-      const dogImageUrl = await fetchRandomDog();
-      if (dogImageUrl) {
-        resultsSection.innerHTML = `
-          <div class="dog">
-            <img src="${dogImageUrl}" alt="Random Dog" class="dog__image" />
-            <p class="dog__info">Random dog fetched successfully!</p>
-          </div>
-        `;
-      } else {
-        resultsSection.innerHTML = `
-          <p class="error">Failed to load dog. Try again!</p>
-        `;
-      }
-    }
-    // Add an event listener for user input (simulating a search)
-    searchBar.addEventListener("input", (e) => {
-      const query = e.target.value.trim().toLowerCase();
-      if (query) {
-        // For now, always fetch a random dog
-        displayDog();
-      }
-    });
-
-    // loading screen
-
-    var loader = document.getElementById("loading__screen");
-
-    window.addEventListener ("load", function(){
-    })
-
-    const pageLoad = new Promise(resolve => {
-      window.addEventListener('load', resolve);
-    }) 
-
-    const delayTimeout = new Promise(resolve => {
-      setTimeout(resolve, 1000);
-    })
-
-    Promise.all([pageLoad, delayTimeout]).then(() => {
-      loader.style.display = "none";
-    })
-
-    // event listener to detect changes in value
-    //calc for how many images to display
-    //DOM manipulation for show/hide elements
-
-        const slider = document.getElementById('range__element');
-        const rangeValueDisplay = document.querySelector('.results__h5');
-        const imageContainer = document.getElementById('dogs');
-
-        const imageSrc = '${dogImageUrl}';
-
-        async function updateImages() {
-          const numImages = parseInt(slider.value);
-          rangeValueDisplay.textContent = 'number of images';
-          imageContainer.innerHTML = '';
-
-          for (let i = 0; i < numImages; i++) {
-            const dogImageUrl = await fetchRandomDog();
-            if (dogImageUrl) {
-            const img = document.createElement('img');
-            img.src = dogImageUrl;
-            img.alt = 'image ${i + 1}';
-            imageContainer.appendChild(img);
-            }
-          }
-        }
-
-        slider.addEventListener('input', updateImages);
-        updateImages();
-
-    // Initial load
-    displayDog();
   }
-  // Run the main function
-  main();
+
+  async function updateImages() {
+    const numImages = parseInt(slider.value);
+
+    // Update display
+    rangeValueDisplay.textContent = `number of images: ${numImages}`;
+
+    // Show loading state
+    imageContainer.innerHTML = "<p>Loading...</p>";
+
+    try {
+      const successfulImages = [];
+
+      // Keep trying until we get the exact number of images we need
+      while (successfulImages.length < numImages) {
+        try {
+          const url = await fetchRandomDog();
+          if (url) {
+            successfulImages.push(url);
+          }
+        } catch (error) {
+          console.error("Failed to fetch an image, retrying...");
+          // Continue trying even if one fails
+          continue;
+        }
+      }
+
+      // Clear container and add all successful images
+      imageContainer.innerHTML = "";
+
+      successfulImages.forEach((url, index) => {
+        const imgWrapper = document.createElement("div");
+        imgWrapper.className = "dog-wrapper";
+
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = `Dog image ${index + 1}`;
+        img.className = "classname-for-your-dog-imgs";
+
+        // Add loading indicator
+        img.addEventListener("load", () => {
+          img.style.opacity = "1";
+        });
+
+        imgWrapper.appendChild(img);
+        imageContainer.appendChild(imgWrapper);
+      });
+    } catch (error) {
+      console.error("Error updating images:", error);
+      imageContainer.innerHTML =
+        '<p class="error">Failed to load images. Please try again!</p>';
+    }
+  }
+
+  // Debounce function with a reasonable delay
+  function debounce(func, wait) {
+    let timeoutId = null;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(null, args), wait);
+    };
+  }
+
+  // Create debounced version with 500ms delay
+  const debouncedUpdateImages = debounce(updateImages, 500);
+
+  // Event listeners
+  slider.addEventListener("input", debouncedUpdateImages);
+
+  searchBar.addEventListener("input", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    if (query) {
+      debouncedUpdateImages();
+    }
+  });
+
+  // Loading screen
+  const loader = document.getElementById("loading__screen");
+  const pageLoad = new Promise((resolve) =>
+    window.addEventListener("load", resolve)
+  );
+  const delayTimeout = new Promise((resolve) => setTimeout(resolve, 1000));
+
+  Promise.all([pageLoad, delayTimeout]).then(() => {
+    loader.style.display = "none";
+  });
+
+  // Initial load
+  updateImages();
+}
+
+// Run the main function
+main();
